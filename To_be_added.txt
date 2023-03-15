@@ -1,0 +1,13 @@
+Features need to be added in jarvis.
+
+1. make calls and recieve calls
+2. alarm, stopwatch, timer
+3. suggest various things to the user
+4. search directly instead of saying google search, youtube search and search wikipedia.
+5. turn on youtube and google automation and windows automation
+6. add a good general communication system
+7. if user says, i will be back in so and so time then wait for that particular time and then start listening to the user.(done)
+8. send and recieve messages.
+9. add whatsapp automation
+10. latest news updates
+11. if there is any event in the calender so remind about that.
