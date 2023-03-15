@@ -1,4 +1,4 @@
-# Here we will add various features to our jarvis and make him more responsible.
+# Here we will add various feature to our jarvis and make him more responsible.
 from basicfunc import speak
 
 def googleSearch(term):
