@@ -1,4 +1,4 @@
-# Here we will add various feature to our jarvis and make him more responsible.
+""" The advance features synthesized to give advanced authority to jarvis to perform a variety of tasks. """
 from basicfunc import speak
 
 def googleSearch(term):
@@ -35,18 +35,11 @@ def youtubeSearch(term):
     pywhatkit.playonyt(term)
     speak("This may also help you sir.")
 
-def telljokes():
-    """ 
-    This function will tell us jokes """
-    from pyjokes import get_joke
-    joke = get_joke(language="en", category="neutral")
-    speak(joke)
-
 def temperature(term):
+    ''' This function will tell the current temperature. '''
     import requests
     from bs4 import BeautifulSoup
     
-    ''' This function will tell the current temperature. '''
     url = f"http://www.google.com/search?q={term}" #searching weather
     # taking raw data
     r = requests.get(url) 
@@ -97,3 +90,37 @@ def Weather_Report():
     import pywhatkit
     speak("showing weather reports")
     pywhatkit.search("weather")
+
+def alarm(user_time):
+    """ This function will take the user input in the form of time and then play the alarm on the targeted time. """
+
+    from datetime import datetime
+    import os
+
+    # converting the user command to proper time format
+    user_time = user_time.replace('hours', '')
+    user_time = user_time.replace('and', '')
+    user_time = user_time.replace('minutes', '')
+    
+    splitted_time = user_time.split()
+    index = splitted_time.index('for')
+    time = splitted_time[index+1::]
+    
+    alarm_time = ":".join(time)
+    speak(f"The alarm is set for {alarm_time}.")
+    
+    # running the alarm loop
+    alarm_system = True
+    
+    while alarm_system:
+        if datetime.now().strftime("%H:%M")[0] == '0':
+            present_time = datetime.now().strftime("%H:%M").removeprefix('0')
+
+        else:
+            present_time = datetime.now().strftime("%H:%M")
+
+        if present_time==alarm_time:
+            print(f"{alarm_time} alarm ran out.")
+            os.startfile(r"G:\\coding\\Python\\02_myprojects\\voiceassistant\\Database\\Sound\\alarm.mp3")
+            
+            alarm_system = False

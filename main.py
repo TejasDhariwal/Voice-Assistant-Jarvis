@@ -1,8 +1,6 @@
 def jarvis():
-    from basicfunc import WishMe, takecommand, speak
-        
-    #WishMe()              
-    
+    from basicfunc import WishMe, takecommand, speak 
+    WishMe()
     while 1:
         Query = takecommand().lower()                    
         if "wikipedia" in Query:
@@ -40,9 +38,6 @@ def jarvis():
             from OpenFiles import openFiles
             openFiles(Query)
         
-        elif "play" in Query:
-            from OpenFiles import openFiles
-            openFiles(Query)
 
         elif "time" in Query:
             from features import present_time
@@ -64,7 +59,6 @@ def jarvis():
 
         # Need to work on this
         elif "alarm" in Query: 
-            # need to work
             import os
             import keyboard
             path="F:\\Python\\02_myprojects\\voiceassistant\\alarming.py"
@@ -142,3 +136,4 @@ def jarvis():
         else:
             print("Please speak again.")
 
+jarvis()

@@ -1,3 +1,5 @@
+""" The basic functions which will be used at each and every time in our jarvis. """
+
 def speak(text):
     import pyttsx3
     engine = pyttsx3.init('sapi5')
@@ -14,18 +16,16 @@ def takecommand():
         audio = r.listen(source)    
     try:
         print("Recognizing..")
-        q = r.recognize_google(audio,language="en")
+        q = r.recognize_google(audio, language="en")
         print(f"User Said : {q}\n")            
     except Exception as e:
         print("Say that again please.")
         return "None"
-
-    words = q.lower().split()
-    i = words.index("okay")
-    realwords = words[i+1::]
-    realinput = " ".join(realwords)
-
-    query = realinput    
+    
+    query = q.lower()
+    query = query.replace("jarvis", "")
+    query = query.replace("ok", "")
+    query = query.replace("hey", "")
 
     return query
 
