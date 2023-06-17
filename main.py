@@ -1,75 +1,77 @@
+""" This is the main part of our jarvis where the work is being assigned to it for different things. """
+
+
 def jarvis():
+    # Brain of jarvis 
+
     from basicfunc import WishMe, takecommand, speak 
     WishMe()
-    while 1:
+    
+    from OpenFiles import openFiles
+    from features import searchWikipedia, googleSearch, youtubeSearch, temperature, present_time, Weather_Report, alarm, justWait, sleepJarvis, time_table
+    from computer_access import shutdown, restart, restart_time, logout
+    from datetime import date
+    from chat import chat
+
+    system = True
+
+    while system:
         Query = takecommand().lower()                    
         if "wikipedia" in Query:
-            try:
-                import wikipedia
-                speak("Searching wikipedia")
-                Query = Query.replace("wikipedia", "")
-                Query = Query.replace("search", "")
-                results = wikipedia.summary(Query, sentences=2)
-                speak(f"According to wikipedia \n{results}")
-            except Exception as e:
-                speak("Sir ! I did not found any page related to your search.")
+            # searching for wikipedia 
+            searchWikipedia(Query)
 
         elif "google search" in Query:
-            speak("Searching for your results.")
-            Query = Query.replace("google search","")
-            from features import googleSearch
+            # searching on google 
             googleSearch(Query)
 
         elif "youtube search" in Query:
-            speak("Here are the results.")
-            Query = Query.replace("youtube search","")
-            from features import youtubeSearch
+            # making youtube search 
             youtubeSearch(Query)
 
         elif "open" in Query:
-            from OpenFiles import openFiles
+            # will open any file in the computer or even a website 
             openFiles(Query)
         
         elif "music" in Query:
-            from OpenFiles import openFiles
+            # will play any music or song from youtube as specified by the user 
+            openFiles(Query)
+
+        elif "favourite" in Query:
+            # will play my favourite playlist on youtube 
             openFiles(Query)
         
         elif "see" in Query:
-            from OpenFiles import openFiles
             openFiles(Query)
         
-
         elif "time" in Query:
-            from features import present_time
-            time = present_time()
-            speak(f"Sir it's {time}")
-
+            # will tell the present time 
+            present_time()
+            
         elif "date" in Query:
-            from datetime import date
+            # will tell the present date 
             present_date = date.today()
             speak(f"Today's date is {present_date}")
         
         elif "temperature" in Query:
-            from features import temperature
+            # will tell the current temperature
             temperature(Query)
 
         elif "weather report" in Query:
-            from features import Weather_Report
+            # will tell the weather report 
             Weather_Report()
 
-        # Need to work on this
         elif "alarm" in Query: 
-            import os
-            import keyboard
-            path="F:\\Python\\02_myprojects\\voiceassistant\\alarming.py"
-            os.startfile(path)
-            keyboard.send("F3")
+            # will set the alarm 
+            alarm(Query)
  
         elif "your full form" in Query:
+            # will tell the full form of jarvis 
             speak("That is\nJust A Really Very Intelligent System.")
 
         elif "shutdown" in Query:
-            from computer_access import shutdown
+            # will shutdown the computer on the spot or after some time 
+
             speak("Sir ! Do you really want me to shutdown the computer ?")
             a = takecommand()
             if "yes" in a:
@@ -79,7 +81,7 @@ def jarvis():
                 speak("ok sir!")
             
         elif "restart" in Query:
-            from computer_access import restart, restart_time
+            # will restart the computer 
             speak("Should I restart now or after some time ?")
             option = takecommand()
 
@@ -91,8 +93,8 @@ def jarvis():
                 restart()
 
         elif "logout" in Query:
-            try:
-                from computer_access import logout
+            # will logout from the pc 
+            try: 
                 speak("ok sir !")
                 logout()
             except Exception as er:
@@ -100,40 +102,20 @@ def jarvis():
                 speak("Sir, you have not login into the computer yet.")
         
         elif "go to sleep" in Query:
-            import random
-            from datetime import datetime
-            now=datetime.now()
-            choices = ['Good Bye sir.', 'We shall meet again.', 'Have a nice day ahead sir.']
-            
-            reply=["Good night sir" if now.hour>=20 else random.choice(choices)]
-
-            speak(reply)
-            quit()
+            # will switch off the jarvis 
+            sleepJarvis()
 
         elif "just wait" in Query:
-            import time
-            waitingtime=Query.replace("just", "")
-            waitingtime=waitingtime.replace("wait", "")
-            waitingtime=waitingtime.replace("I", "")
-            waitingtime=waitingtime.replace("will", "")
-            waitingtime=waitingtime.replace("be", "")
-            waitingtime=waitingtime.replace("back", "")
-            waitingtime=waitingtime.replace("in", "")
-            waitingtime=waitingtime.replace("and", "")
-            waitingtime=waitingtime.replace(" ", "")
-            waitingtime=waitingtime.replace("i", "")
-            
-            if "minutes" in waitingtime:
-                waitingtime = waitingtime.replace("minutes", "")
-                waitime = int(waitingtime)*60
-            else:
-                waitingtime = waitingtime.replace("seconds", "")
-                waitime = int(waitingtime)
-                
-            speak("ok sir")
-            time.sleep(waitime)            
+            # will wait for the time specified by the user 
+            justWait()  
+
+        elif "schedule" in Query:
+            # will make a file where user can make the time table for the next day.
+            time_table()
+
 
         else:
-            print("Please speak again.")
-
-jarvis()
+            # if user's input doesn't matches any of the case, then we will use the chat function to proceed with it.
+            
+            chat(Query)
+        

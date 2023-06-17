@@ -1,6 +1,8 @@
 """ The basic functions which will be used at each and every time in our jarvis. """
 
 def speak(text):
+    """ This function will speak the text provided to it. """
+
     import pyttsx3
     engine = pyttsx3.init('sapi5')
     engine.say(text)
@@ -8,11 +10,12 @@ def speak(text):
     engine.runAndWait()
 
 def takecommand():
+    "This function will take voice command from the user."
+
     import speech_recognition as sr
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold = 1 
         audio = r.listen(source)    
     try:
         print("Recognizing..")
@@ -30,6 +33,8 @@ def takecommand():
     return query
 
 def WishMe():
+    """ This function will wish the user as per the time. """
+
     from datetime import datetime, date
     from features import present_time, temperature
     hour = int(datetime.now().hour)
@@ -40,8 +45,7 @@ def WishMe():
         speak("Good Afternoon Sir")        
     elif hour>17 and hour<24:
         speak("Good Evening Sir")
-    time=present_time()    
-    speak(f"Its {time}")
+    present_time() 
     speak(f"The day is {present_date}")
     temperature("temperature")
     speak("I am Jarvis! How can I help you?")
